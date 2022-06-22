@@ -1,0 +1,19 @@
+{
+  "name": "node-1",
+  "version": "1.0.0",
+  "description": "Самостоятельная работа № 1\r Создание NPM пакета для показа дерева\r Функция для показа древовидной структуры",
+  "main": "tree.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/STARGUS/rapoport-stas-otus.git"
+  },
+  "author": "Stas R.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/STARGUS/rapoport-stas-otus/issues"
+  },
+  "homepage": "https://github.com/STARGUS/rapoport-stas-otus#readme"
+}
