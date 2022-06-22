@@ -4,6 +4,7 @@
   "description": "Самостоятельная работа № 1\r Создание NPM пакета для показа дерева\r Функция для показа древовидной структуры",
   "main": "tree.js",
   "scripts": {
+    "start": "node tree",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
