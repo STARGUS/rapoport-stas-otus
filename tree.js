@@ -7,7 +7,7 @@ const Tree = {
       items: [{ name: 3 }, { name: 4 }],
     },
     {
-      name: 4,
+      name: 5,
       items: [{ name: 6 }],
     },
   ],
