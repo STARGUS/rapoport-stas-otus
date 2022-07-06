@@ -1,4 +1,5 @@
 "use strict";
+//Дерево
 const Tree = {
   name: 1,
   items: [
