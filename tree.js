@@ -12,7 +12,7 @@ const Tree = {
     },
   ],
 };
-
+//Функция показа дерева
 function getTree(tree, prefix = "") {
   let result = "";
   tree.map((item, index) => {
@@ -34,4 +34,5 @@ function start(tree) {
   }
   console.log(dataTree);
 }
+//Запуск
 start(Tree);
