@@ -1,5 +1,10 @@
 # compiled output
 /node_modules
+/bower_components
+.tmp
+.sass-cache
+/editors
+
 
 # Logs
 logs
