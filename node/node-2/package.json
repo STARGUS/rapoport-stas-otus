@@ -7,8 +7,16 @@
     "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Rapoport S",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/STARGUS/rapoport-stas-otus.git"
+  },
+  "author": "Stas R.",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/STARGUS/rapoport-stas-otus/issues"
+  },
+  "homepage": "https://github.com/STARGUS/rapoport-stas-otus#readme",
   "dependencies": {
     "fs": "^0.0.1-security",
     "path": "^0.12.7"
