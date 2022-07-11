@@ -1,9 +1,13 @@
 const fs = require("fs");
-const mergeSort = require("./merge-sort");
+const { mergeSort = Function.prototype } = require("./merge-sort");
 
 function splittingIntoFiles(maxSizeFile) {
   const maxSizeFileMbyte = maxSizeFile * 1024 * 1024;
-  const read = fs.createReadStream("./numbers.txt", "utf8");
+  const read = fs.createReadStream("./numbers.txt", {
+   // objectmode: true,
+    encoding: "utf8",
+    highWaterMark: 2* 1024,
+  });
   const numberOfFiles = Math.ceil(
     // Функция расчета нового количества файлов в зависимости от требуемой памяти
     fs.statSync("./numbers.txt").size / maxSizeFileMbyte
@@ -13,7 +17,7 @@ function splittingIntoFiles(maxSizeFile) {
   let fileWrite = fs.createWriteStream(`./file${i}.txt`);
   read
     .on("data", (chunk) => {
-      if (fileWrite.bytesWritten <= maxSizeFileMbyte) {
+      if (fileWrite.bytesWritten + chunk.length <= maxSizeFileMbyte) {
         fileWrite.write(chunk, (err) => {
           if (err) {
             console.log(err);
@@ -25,15 +29,17 @@ function splittingIntoFiles(maxSizeFile) {
         i++;
         fileWrite = fs.createWriteStream(`./file${i}.txt`);
         fileWrite.write(chunk, (err) => {
-            if (err) {
-              console.log(err);
-            } else {
-              return;
-            }
-          });
+          if (err) {
+            console.log(err);
+          } else {
+            return;
+          }
+        });
       }
     })
-    .on("end", () => mergeSort(numberOfFiles));
+    .on("end", () => {
+      mergeSort(numberOfFiles);
+    });
 }
 
 module.exports = splittingIntoFiles;

@@ -17,21 +17,31 @@ function createFileNumbers() {
   };
   const pushNumber = () => {
     //Проверка, запись в Буфер и в файл
-    const num = [];
-    for (let i = 0; i < 100; i++) {
-      num.push(Math.floor(Math.random() * 10000000 + 1));
+    let num = "";
+    let numbers = [];
+    while (true) {
+      num += Math.floor(Math.random() * 10000000 + 1) + ",";
+      if (num.length % (16* 1024) === 0) break;
     }
-    let buffer = new Buffer(num.join("\n"));
+    let buffer = new Buffer(num);
     const resByteSize = file.bytesWritten + buffer.byteLength;
     if (resByteSize <= maxLength) {
-      writeFile(buffer.toString() + "\n");
+      writeFile(buffer.toString() + ",");
     } else {
       if (maxLength - file.bytesWritten >= 8) {
-        writeFile(Math.floor(Math.random() * 10000000 + 1) + "\n");
+        writeFile(Math.floor(Math.random() * 10000000 + 1) + ",");
       } else {
-        console.log(file.bytesWritten == maxLength);
-        console.log(maxLength - file.bytesWritten);
-        splittingIntoFiles(50);
+        if (maxLength - file.bytesWritten !== 0) {
+          writeFile(
+            Math.floor(
+              Math.random() * Math.pow(10, maxLength - file.bytesWritten)
+            ).toString()
+          );
+        } else {
+          console.log(file.bytesWritten == maxLength);
+          console.log(maxLength - file.bytesWritten);
+          splittingIntoFiles(50);
+        }
       }
     }
   };
