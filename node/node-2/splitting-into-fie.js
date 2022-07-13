@@ -4,7 +4,6 @@ const { mergeSort = Function.prototype } = require("./merge-sort");
 function splittingIntoFiles(maxSizeFile) {
   const maxSizeFileMbyte = maxSizeFile * 1024 * 1024;
   const read = fs.createReadStream("./numbers.txt", {
-   // objectmode: true,
     encoding: "utf8",
     highWaterMark: 2* 1024,
   });
@@ -26,6 +25,7 @@ function splittingIntoFiles(maxSizeFile) {
           }
         });
       } else {
+        fileWrite.end();
         i++;
         fileWrite = fs.createWriteStream(`./file${i}.txt`);
         fileWrite.write(chunk, (err) => {

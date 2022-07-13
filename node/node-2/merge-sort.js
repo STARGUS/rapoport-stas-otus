@@ -2,22 +2,28 @@ const fs = require("fs");
 const resultSort = require("./result-sort");
 
 function mergeSort(num) {
+  //Сортировка каждого файла по отдельности
   for (let i = 0; i < num; i++) {
-    console.log("Старт ", i, " итерации");
-    let Array = fs
-      .readFileSync(`./file${i}.txt`, { encoding: "utf8" })
-      .split(",");
-     Array = Array.map((el) => +el).filter((el) => !!el);
-    const newArray = Sort(Array);
-    const writeFile = fs.createWriteStream(`./file${i}.txt`);
-    writeFile.write(newArray.join(','), (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Все идет ок!");
-      }
+    console.log("Сортировка файла:", i);
+    let Array = fs.createReadStream(`./file${i}.txt`, {
+      highWaterMark: 2 * 1024 * 1024,
+      encoding: "utf8",
     });
-    if (i == num - 1) setTimeout(() => resultSort(num, Sort, merge), 1000);
+    let write = fs.createWriteStream(`./fileRes${i}.txt`, "utf8");
+    sorting(Array).then(() => {
+      if (i == num - 1) setTimeout(() => resultSort(num, Sort), 100);
+    });
+    async function sorting(arr) {
+      for await (const chunk of arr) {
+        const numbers = chunk.split(",").map((el) => !!el && +el);
+        const resSortingNum = Sort(numbers);
+        write.write(resSortingNum.toString(), (err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      }
+    }
   }
 }
 function merge(arrFirst, arrSecond) {

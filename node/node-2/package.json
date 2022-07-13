@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/STARGUS/rapoport-stas-otus.git"
+    "url": "git@github.com:STARGUS/rapoport-stas-otus.git"
   },
   "author": "Stas R.",
   "license": "ISC",

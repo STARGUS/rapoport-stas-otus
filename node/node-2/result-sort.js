@@ -6,15 +6,12 @@ function resultSort(num, Sort = Function.prototype) {
   const write = fs.createWriteStream("./result.txt");
   for (let i = 0; i < num - 1; i++) {
     if (i % 2 == 0) {
-      file[i] = fs.createReadStream(`./file${i}.txt`, {
+      file[i] = fs.createReadStream(`./fileRes${i}.txt`, {
         encoding: "utf8",
-        highWaterMark: 2* 1024,
       });
       file[i + 1] = fs.createReadStream(`./file${i + 1}.txt`, {
         encoding: "utf8",
-        highWaterMark: 2* 1024,
       });
-      console.log("вход в результирующую функцию");
       file[i]
         .on("data", (chunk) => {
           data[i] = chunk
@@ -42,7 +39,7 @@ function resultSort(num, Sort = Function.prototype) {
         } else {
           newData = Sort([...data[i], ...data[i + 1]]);
         }
-        write.write(newData.join(","), (err) => {
+        write.write(newData.toString(), (err) => {
           if (err) {
             console.log(err);
           } else {
