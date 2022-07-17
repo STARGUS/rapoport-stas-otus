@@ -1,6 +1,6 @@
 "use strict";
 //Дерево
-const Tree = {
+const treeStructure = {
   name: 1,
   items: [
     {
@@ -36,4 +36,4 @@ function start(tree) {
   console.log(dataTree);
 }
 //Запуск
-start(Tree);
+start(treeStructure);
