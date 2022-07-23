@@ -1,0 +1,11 @@
+{
+  "name": "node-4",
+  "version": "1.0.0",
+  "description": "Создание REST API для управления сущностями приложения",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
