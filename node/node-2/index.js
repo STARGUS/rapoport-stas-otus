@@ -1,7 +1,7 @@
 const fs = require("fs");
 const splittingIntoFiles = require("./splitting-into-fie");
 
-function createFileNumbers(RAM) {
+function createFileNumbers() {
   const maxLength = 100 * 1024 * 1024; // Максимальная длина файла
   const file = fs.createWriteStream("./numbers.txt"); // Файл для записи
   const writeFile = (chunk) => {
@@ -35,14 +35,11 @@ function createFileNumbers(RAM) {
             ).toString()
           );
         } else {
-          splittingIntoFiles(RAM);
+          splittingIntoFiles();
         }
       }
     }
   };
   pushNumber();
 }
-const [RAM] = process.execArgv.map(
-  (el) => el.lastIndexOf("--max-old-space-size=") >= 0 && el.split("=")[1]
-);
-if (!!RAM && RAM >= 10) createFileNumbers(Number(RAM));
+createFileNumbers();

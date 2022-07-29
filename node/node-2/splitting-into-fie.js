@@ -1,8 +1,8 @@
 const fs = require("fs");
 const { mergeSort = Function.prototype } = require("./merge-sort");
 
-function splittingIntoFiles(maxSizeFile) {
-  const maxSizeFileMbyte = maxSizeFile * 1024 * 1024;
+function splittingIntoFiles() {
+  const maxSizeFileMbyte = 50 * 1024 * 1024;
   const read = fs.createReadStream("./numbers.txt", {
     encoding: "utf8",
     highWaterMark: 2* 1024,

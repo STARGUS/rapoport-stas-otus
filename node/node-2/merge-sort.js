@@ -11,7 +11,7 @@ function mergeSort(num) {
     });
     let write = fs.createWriteStream(`./fileRes${i}.txt`, "utf8");
     sorting(Array).then(() => {
-      if (i == num - 1) setTimeout(() => resultSort(num, Sort), 100);
+      if (i == num - 1) resultSort(num, Sort);
     });
     async function sorting(arr) {
       for await (const chunk of arr) {
