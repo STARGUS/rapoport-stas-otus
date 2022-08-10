@@ -1,0 +1,27 @@
+.reg-wrapper {
+  display: grid;
+  font-size: 1rem;
+  position: relative;
+  gap: 10px;
+  justify-items: center;
+  padding: 10px 5px 0 2rem;
+}
+.reg-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1rem 0 0.5rem;
+}
+.reg-form-wrapper {
+  display: grid;
+  gap: 10px;
+  justify-items: end;
+}
+.reg-from-input {
+  height: 1.5rem;
+  display: flex;
+  gap: 10px;
+}
+.reg-from-btn {
+  height: 1.5rem;
+  width: 7rem;
+}

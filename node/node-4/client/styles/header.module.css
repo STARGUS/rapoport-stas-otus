@@ -1,0 +1,23 @@
+.header-wrapper {
+  display: flex;
+  position: fixed;
+  z-index: 100;
+  gap: 3rem;
+  height: 3rem;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 1rem;
+  background-color: dimgrey;
+  top: 0;
+}
+.header-wrapper a {
+  color: #f1f1f1;
+}
+.header-user {
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  right: 2rem;
+  color: #f1f1f1;
+}

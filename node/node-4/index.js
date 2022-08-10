@@ -1,28 +1,27 @@
 const express = require("express");
-const app = express();
-const MongoClient = require("mongodb").MongoClient;
-const PORT = 3000;
+const PORT = 3001;
 const routerCourse = require("./router/course");
-let db;
-const dbPromise = new Promise((resolve, reject) => {
-  MongoClient.connect("mongodb://localhost:27017", (err, client) => {
-    if (err) return reject(err);
-    resolve(client.db("otus"));
-  });
-});
-dbPromise
-  .then((_db) => {
-    db = _db;
-    app.listen(PORT, () => console.log("Listen on 3000"));
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+const routerAuth = require("./router/auth");
+const bodyParser = require("body-parser");
+const mongoClient = require("./db");
+const cors = require("cors");
+const loginMidleware = require("./midleware/login.midleware");
+const cookieParser = require("cookie-parser");
 
-app.use(
-  express.json({
-    limit: "5mb",
-  })
-);
+run();
 
-app.use("/course", routerCourse);
+async function run() {
+  const app = express();
+  app.use(cookieParser());
+  app.use(bodyParser.json());
+  await mongoClient.run();
+  app.use(express.static("./client/pages"));
+  app.use(cors());
+  app.use(loginMidleware);
+  app.use("/", routerCourse);
+  app.use("/", routerAuth);
+  app.listen(
+    PORT,
+    (err) => !err && console.log("Server started by port " + PORT)
+  );
+}

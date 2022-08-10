@@ -1,0 +1,37 @@
+.learning_near__header_link {
+  font: inherit;
+  margin: 0;
+  overflow-anchor: none;
+  padding: 0;
+  background: #fff;
+  border: 2px solid dimgrey;
+  border-radius: 50%;
+  display: grid;
+  font-size: 1.1rem;
+  height: 2rem;
+  line-height: 2rem;
+  margin-right: 10px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  width: 2rem;
+  z-index: 2;
+  align-content: center;
+}
+.learning_near__number {
+  border: 0;
+  font: inherit;
+  margin: 0;
+  overflow-anchor: none;
+  padding: 0;
+  display: table-cell;
+  vertical-align: middle;
+  text-decoration: none;
+}
+.learning_trash {
+  z-index: 10;
+  position: absolute;
+  display: block;
+  margin: 0.6rem 4rem 0 0;
+}
