@@ -1,0 +1,20 @@
+{
+  "name": "streem-homework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --max-old-space-size=50 server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:STARGUS/rapoport-stas-otus.git"
+  },
+  "author": "Stas R.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/STARGUS/rapoport-stas-otus/issues"
+  },
+  "homepage": "https://github.com/STARGUS/rapoport-stas-otus#readme"
+}
