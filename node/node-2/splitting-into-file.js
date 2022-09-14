@@ -14,27 +14,20 @@ async function splittingIntoFiles() {
   );
   console.log("Количество необходимых файлов: ", numberOfFiles);
   let i = 0;
-  let writeFile = fs.createWriteStream(`./file${i}.txt`);
+  const fileList = [];
   for await (const chunk of read) {
-    const SortingFile = () => {
-      const sortFile = Sort(
-        chunk
-          .replace("\n\n", "\n")
-          .split("\n")
-          .filter((el) => !!el)
-      );
-      writeFile.write(sortFile.join("\n") + "\n");
-    };
-    if (writeFile.bytesWritten <= 46 * 1024 * 1024 || i == 1) {
-      SortingFile();
-    } else {
-      writeFile.end();
-      i++;
-      writeFile = fs.createWriteStream(`./file${i}.txt`);
-      SortingFile();
-    }
+    fileName = `./files/file${i}.txt`;
+    i++;
+    const sortFile = Sort(
+      chunk
+        .replace("\n\n", "\n")
+        .split("\n")
+        .filter((el) => !!el)
+    );
+    fs.createWriteStream(fileName).write(sortFile.join("\n"));
+    fileList.push(fileName);
   }
-  return resultSort(2);
+  return await resultSort(fileList);
 }
 
 module.exports = splittingIntoFiles;
