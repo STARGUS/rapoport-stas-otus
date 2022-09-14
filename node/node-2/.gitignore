@@ -6,7 +6,6 @@
 *.txt
 .txt
 /editors
-files/*.txt
 
 
 # Logs
