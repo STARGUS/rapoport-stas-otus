@@ -4,12 +4,11 @@ async function resultSort(fileList) {
   const write = fs.createWriteStream("./result.txt", "utf8");
   const data = [];
   let i = 0;
-  const readFiles = async () => {
+  const readingFilesForWriting = async () => {
     for await (const file of fileList) {
       const readFile = fs.createReadStream(file, {
         encoding: "utf8",
         highWaterMark: 128 * 1024,
-        objectModel: true,
       });
       readFile.on("data", (chunk) => {
         data.push(...chunk.split("\n").map((el) => !!el && +el));
@@ -22,7 +21,7 @@ async function resultSort(fileList) {
       });
     }
   };
-  readFiles();
+  readingFilesForWriting();
 }
 
 module.exports = resultSort;
