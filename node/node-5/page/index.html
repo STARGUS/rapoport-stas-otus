@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node-5 WS</title>
+    <link
+      rel="stylesheet"
+      href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"
+    />
+    <script src="leaflet.js"></script>
+  </head>
+  <body>
+    <div id="map" style="width: 900px; height: 580px"></div>
+    <button>Отправить координаты</button>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io.connect("http://localhost:3000");
+      socket.on("message", function (message) {
+        alert("The server has a message for you: " + message);
+      });
+      socket.on("connect", () => {
+        const geolocationServer = () => {
+          const geo = (position) => {
+            const lng = position.coords.longitude;
+            const lat = position.coords.latitude;
+            return socket.emit("geolocation", { lat, lng });
+          };
+          navigator.geolocation.getCurrentPosition(geo);
+        };
+        setInterval(() => geolocationServer(), 10 * 1000);
+      });
+      socket.on("geoMap", ({ position, location }) => {
+        copnsole.log(location);
+        const mapOptions = {
+          center: location,
+          zoom: 7,
+        };
+        // Creating a map object
+        const map = new L.map("map", mapOptions);
+        var layer = new L.TileLayer(
+          "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        );
+
+        // Adding layer to the map
+        map.addLayer(layer);
+        const polyline = L.polyline(position, { color: "red" });
+        polyline.addTo(map);
+      });
+      socket.on("disconnect", () => {
+        console.log(socket.id ? socket.id : "disconnect");
+        socket.connect();
+      });
+    </script>
+  </body>
+</html>
