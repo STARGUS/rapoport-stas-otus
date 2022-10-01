@@ -3,14 +3,7 @@ const fs = require("fs");
 const express = require("express");
 const app = express();
 
-// Загружаем файл index.html и отображаем его клиенту
 const server = http.createServer(app);
-// function (req, res) {
-//   fs.readFile("./index.html", "utf-8", function (error, content) {
-//     res.writeHead(200, { "Content-Type": "text/html" });
-//     res.end(content);
-//   });
-// };
 
 // Загружаем socket.io
 const { Server } = require("socket.io");
