@@ -31,8 +31,8 @@ export default class User {
   @Column('varchar', { unique: true }) //Уникальный номер
   public phone_number?: string;
 
-  @JoinColumn()
   @OneToMany(() => Role, (role) => role.role)
+  @JoinColumn()
   public role!: Role[];
 
   @CreateDateColumn()
