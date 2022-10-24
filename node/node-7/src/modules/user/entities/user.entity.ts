@@ -7,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   JoinTable,
-  BeforeInsert,
 } from 'typeorm';
 import {
   IsDate,
@@ -19,11 +18,11 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import Role from './role.model';
-import Photo from './photo.model';
+import {Role} from './role.entity';
+import {Photo} from './photo.entity';
 
 @Entity('users')
-export default class User {
+export class User {
   @PrimaryGeneratedColumn('uuid')
   public id: number;
 

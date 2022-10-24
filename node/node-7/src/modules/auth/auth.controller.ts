@@ -9,7 +9,7 @@ import {
   Request,
   Body,
 } from '@nestjs/common';
-import { UserDto } from '../user/user.service.dto';
+import { UserDto } from '../user/dto/user.service.dto';
 import { AuthService } from './auth.service';
 
 @Controller()

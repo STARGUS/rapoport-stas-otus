@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export default class Auth {
+export class Auth {
   @PrimaryGeneratedColumn('uuid')
   public id: number;
 

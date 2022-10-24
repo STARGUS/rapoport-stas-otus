@@ -6,10 +6,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import User from './user.model';
+import {User} from './user.entity';
 
 @Entity()
-export default class Photo {
+export class Photo {
   @PrimaryGeneratedColumn()
   id: number;
 

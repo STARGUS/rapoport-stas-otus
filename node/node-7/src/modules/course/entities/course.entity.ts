@@ -7,10 +7,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import User from '../user/user.model';
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
-export default class Course {
+export class Course {
   @PrimaryGeneratedColumn('uuid')
   public id: number;
 
