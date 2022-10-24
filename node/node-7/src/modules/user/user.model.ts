@@ -7,33 +7,67 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   JoinTable,
-  JoinColumn,
+  BeforeInsert,
 } from 'typeorm';
+import {
+  IsDate,
+  IsDefined,
+  IsEmail,
+  IsNotEmpty,
+  IsPhoneNumber,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 import Role from './role.model';
+import Photo from './photo.model';
 
-@Entity("users")
+@Entity('users')
 export default class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   public id: number;
 
-  @Column('varchar', { length: 80 })
-  public firstname?: string;
+  @Column({ nullable: false, default: '' })
+  public firstname: string;
 
-  @Column('varchar', { length: 80 })
-  public lastname?: string;
+  @Column({ nullable: false, default: '' })
+  public lastname: string;
 
-  @Column('varchar', { length: 80, unique: true }) //Уникальная почта
+  @IsEmail()
+  @Column({ unique: true })
   public email: string;
 
-  @Column('varchar', { length: 80 })
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(6)
+  @MaxLength(16)
+  @Column()
   public password: string;
 
-  @Column('varchar', { unique: true }) //Уникальный номер
-  public phone_number?: string;
+  @IsPhoneNumber()
+  @Column({ nullable: false, default: '' })
+  @IsDefined()
+  public phone_number: string;
 
-  @OneToMany(() => Role, (role) => role.role)
-  @JoinColumn()
-  public role!: Role[];
+  @IsDate()
+  @Column({ nullable: false, default: () => 'now()' })
+  @IsDefined()
+  public birthdate: Date;
+
+  @Column({ nullable: false, default: '' })
+  @IsDefined()
+  public country: string;
+
+  @Column({ nullable: false, default: '' })
+  @IsDefined()
+  public city: string;
+
+  @OneToMany((type) => Photo, (photo) => photo.user)
+  public photos: Photo[];
+
+  @ManyToMany(() => Role, (role) => role.userRole)
+  @JoinTable()
+  public role: Role[];
 
   @CreateDateColumn()
   createdAt: Date;
