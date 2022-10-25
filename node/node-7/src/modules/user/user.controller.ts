@@ -25,7 +25,6 @@ export class UserController {
   @Get()
   // @Roles('ADMIN')
   async getAllUsers() {
-    console.log('hi');
     const users = await this.userService.findAll();
     return { users };
   }
@@ -48,18 +47,18 @@ export class UserController {
   // }
 
   @Post('role')
-  @Roles('ADMIN')
+  @Roles()
   async createRole(@Body() data: string) {
     const role = await this.userService.createRole(data);
     return { role };
   }
 
   @Get('role')
-  @Roles('ADMIN')
+  @Roles()
   async findRole() {
     console.log('kuku');
     const role = await this.userService.findRole();
-    return role;
+    return { role };
   }
 
   @Post(':id/photo')

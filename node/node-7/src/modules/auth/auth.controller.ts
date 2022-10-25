@@ -2,17 +2,11 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import {
-  Controller,
-  Post,
-  Response,
-  Request,
-  Body,
-} from '@nestjs/common';
+import { Controller, Post, Response, Request, Body } from '@nestjs/common';
 import { UserDto } from '../user/dto/user.service.dto';
 import { AuthService } from './auth.service';
 
-@Controller()
+@Controller('api')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

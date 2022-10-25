@@ -18,8 +18,9 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import {Role} from './role.entity';
-import {Photo} from './photo.entity';
+import { Role } from './role.entity';
+import { Photo } from './photo.entity';
+import { Course } from 'src/modules/course/entities';
 
 @Entity('users')
 export class User {
@@ -73,4 +74,13 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  //Course
+  @ManyToMany(() => Course, (course) => course.access)
+  @JoinTable()
+  public courseAccess: Course[]; //Список доступных курсов
+
+  @OneToMany(() => Course, (course) => course.author)
+  @JoinTable()
+  public courseAdmin: Course[]; //Список Созданных курсов
 }

@@ -17,7 +17,12 @@ export class UserService {
 
   findAll() {
     return this.userRepository.find({
-      relations: { role: true, photos: true },
+      relations: {
+        role: true,
+        photos: true,
+        courseAccess: true,
+        courseAdmin: true,
+      },
     });
   }
   async findOneByEmail(email: string) {
@@ -35,13 +40,7 @@ export class UserService {
     return role;
   }
   async findRole() {
-    console.log('tut');
-    const data = await this.roleRepository.find({
-      // relations: { userRole: true },
-      select: {
-        name: true,
-      },
-    });
+    const data = await this.roleRepository.find();
     console.log(data);
     return data;
   }

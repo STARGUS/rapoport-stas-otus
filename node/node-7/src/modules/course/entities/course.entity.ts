@@ -16,21 +16,16 @@ export class Course {
   @PrimaryGeneratedColumn('uuid')
   public id: number;
 
-  @ManyToOne(
-    () => User,
-    (user) => {
-      return { id: user.id, name: user.firstname + ' ' + user.lastname };
-    },
-  )
-  public author: User; // Автор его имя и id
+  @ManyToOne(() => User, (user) => user.courseAdmin)
+  public author: User;
 
   @ManyToMany(() => User, (user) => user.id)
-  public permit: User[]; //Список разрешенных пользователей
+  public access: User[]; //Список разрешенных пользователей
 
-  @Column()
+  @Column({ unique: true, nullable: true }) //Уникальное имя курса и обязательное поле
   public title: string;
 
-  @Column({ unsigned: false })
+  @Column({ unsigned: false, default: ' ', nullable: false })
   public description: string;
 
   @OneToMany((type) => Photo, (photo) => photo.courseTitle)
