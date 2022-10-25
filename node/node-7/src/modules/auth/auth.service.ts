@@ -3,12 +3,14 @@ import { UserService } from '../user/user.service';
 import * as jwt from 'jsonwebtoken';
 import { keyJWT } from 'src/config/config.service';
 import { compare } from 'bcrypt';
+import { User } from '../user/entities';
+import { UserRegisterDto } from './dto/user-registration.dto';
 @Injectable()
 export class AuthService {
   constructor(private readonly userService: UserService) {}
 
-  async reg({ data, res }) {
-    const createUser = await this.userService.createUser(data);
+  async reg(data: UserRegisterDto, res) {
+    const createUser: User = await this.userService.createUser(data);
     if (!!createUser.id) {
       const token = await jwt.sign(
         { id: createUser.id, role: createUser.role },

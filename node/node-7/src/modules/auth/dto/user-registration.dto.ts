@@ -11,7 +11,7 @@ import {
 
 export class UserRegisterDto {
   @IsString()
-  readonly firstName?: string;
+  readonly firstName: string;
 
   @IsString()
   @IsOptional()
@@ -36,7 +36,7 @@ export class UserRegisterDto {
   @IsString()
   @IsDate()
   @IsOptional()
-  readonly birthday?: string;
+  readonly birthday?: Date;
 
   @IsString()
   @IsOptional()

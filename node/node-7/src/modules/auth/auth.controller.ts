@@ -13,6 +13,6 @@ export class AuthController {
 
   @Post('/registration')
   async reg(@Request() req, @Response() res, @Body() data: UserRegisterDto) {
-    return await this.authService.reg({ res, data });
+    return await this.authService.reg(data, res);
   }
 }

@@ -4,7 +4,6 @@ import { In, Repository } from 'typeorm';
 import { Photo, User, Role } from './entities';
 import { hash } from 'bcrypt';
 import { RoleDto, UserDto } from './dto';
-import { UserRegisterDto } from '../auth/dto/user-registration.dto';
 
 @Injectable()
 export class UserService {
@@ -17,6 +16,7 @@ export class UserService {
     private readonly photoRepository: Repository<Photo>,
   ) {}
 
+  // Получение всезх данныхз о пользователе
   async findAll() {
     return await this.userRepository.find({
       relations: {
@@ -27,6 +27,8 @@ export class UserService {
       },
     });
   }
+
+  // Поиск по email для входа
   async findOneByEmail(email: string) {
     try {
       return this.userRepository.findOne({
@@ -37,15 +39,18 @@ export class UserService {
       throw new Error('Method not implemented.');
     }
   }
+  // Создание новой роли
   async createRole(_roleDto: RoleDto) {
     const role = await this.roleRepository.save(_roleDto);
     return role;
   }
+  // Получение списка ролей
   async findRole() {
     const data = await this.roleRepository.find();
-    console.log(data);
     return data;
   }
+
+  // Создание нового пользователя
   async createUser(_userDto: UserDto): Promise<User> {
     const newPassword = await hash(_userDto.password, 10);
     _userDto.password = newPassword;
@@ -55,12 +60,15 @@ export class UserService {
     return this.userRepository.save(_userDto);
   }
 
+  // Поиск по id с отображением ролей
   async findOneById(id: number) {
     return this.userRepository.findOne({
       where: { id: id },
       relations: { role: true },
     });
   }
+
+  // Данные для мидлвара
   async findOneByIdMidleware(id: number) {
     return this.userRepository.findOne({
       where: { id: id },
@@ -72,8 +80,8 @@ export class UserService {
     });
   }
 
-  //Добавляем фото в базу
-  async editPhoto({ photo, id }) {
+  // Добавляем фото в базу
+  async editPhoto({ photo, id }): Promise<UserDto> {
     const dataUser = await this.userRepository.findOne({
       where: { id: id },
       relations: { avatar: true },
@@ -84,7 +92,7 @@ export class UserService {
     return user;
   }
 
-  //Удаление фото
+  // Удаление фото
   async deletePhoto({ photo, id }) {
     return this.roleRepository.delete({ id: photo.id });
   }

@@ -1,9 +1,10 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { Role } from '../entities';
+import { Photo, Role } from '../entities';
 
 export class PhotoDto {
   readonly name: string;
 
+  @IsOptional()
   readonly description: string;
 
   readonly filename: string;
@@ -12,7 +13,11 @@ export class PhotoDto {
 
   readonly isPublished: boolean;
 
-  constructor(role: Role) {
-    this.name = role.name;
+  constructor(photo: Photo) {
+    this.name = photo.name;
+    this.description = photo.description;
+    this.views = photo.views;
+    this.isPublished = photo.isPublished;
+    this.filename = photo.filename;
   }
 }
