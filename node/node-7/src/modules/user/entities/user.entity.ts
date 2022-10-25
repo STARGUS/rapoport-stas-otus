@@ -16,7 +16,7 @@ import { UserDto } from '../dto';
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  public id: number;
+  public id: string;
 
   @Column({ nullable: false, default: '' })
   public firstName: string;

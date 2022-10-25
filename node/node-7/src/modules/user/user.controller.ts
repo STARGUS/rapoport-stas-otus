@@ -29,7 +29,7 @@ export class UserController {
 
   @Get(':id')
   @Roles('USER')
-  async getUserById(@Param('id', ParseIntPipe) id: number) {
+  async getUserById(@Param('id') id: string) {
     const user = await this.userService.findOneById(id);
     if (!user) {
       throw new NotFoundException('User not found');

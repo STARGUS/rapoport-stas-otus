@@ -61,7 +61,7 @@ export class UserService {
   }
 
   // Поиск по id с отображением ролей
-  async findOneById(id: number) {
+  async findOneById(id: string) {
     return this.userRepository.findOne({
       where: { id: id },
       relations: { role: true },
@@ -69,7 +69,7 @@ export class UserService {
   }
 
   // Данные для мидлвара
-  async findOneByIdMidleware(id: number) {
+  async findOneByIdMidleware(id: string) {
     return this.userRepository.findOne({
       where: { id: id },
       select: {

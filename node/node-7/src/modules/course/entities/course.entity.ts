@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -15,12 +16,12 @@ import { CourseDto } from '../dto';
 @Entity()
 export class Course {
   @PrimaryGeneratedColumn('uuid')
-  public id: number;
+  public id: string;
 
   @ManyToOne(() => User, (user) => user.courseAdmin)
   public author: User;
 
-  @ManyToMany(() => User, (user) => user.id)
+  @ManyToMany(() => User, (user) => user.courseAccess)
   public access: User[]; //Список разрешенных пользователей
 
   @Column({ unique: true, nullable: true }) //Уникальное имя курса и обязательное поле

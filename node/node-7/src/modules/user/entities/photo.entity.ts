@@ -12,7 +12,7 @@ import { User } from './user.entity';
 @Entity()
 export class Photo {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
   @Column({
     length: 100,

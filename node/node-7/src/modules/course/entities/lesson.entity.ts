@@ -15,5 +15,5 @@ import { CourseDto } from '../dto';
 @Entity()
 export class Lesson {
   @PrimaryGeneratedColumn('uuid')
-  public id: number;
+  public id: string;
 }

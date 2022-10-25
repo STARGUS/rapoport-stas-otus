@@ -9,16 +9,18 @@ import {
   Post,
   UseGuards,
   Request,
+  Param,
 } from '@nestjs/common';
 import { RoleGuard } from 'src/guards/role.guard';
 import { CourseService } from './course.service';
 
-@Controller('course')
+@Controller('api/course')
 export class CourseController {
   constructor(private readonly _courseService: CourseService) {}
 
   @Get()
   findAll() {
+    console.log('test');
     return this._courseService.findAll();
   }
 
@@ -29,4 +31,9 @@ export class CourseController {
 
   @Post('createLesson')
   createLesson() {}
+
+  @Post(':id/editAccess')
+  editAccess(@Body('email') email: string, @Param('id') id: string) {
+    return this._courseService.editAccessCourse(email, id);
+  }
 }
