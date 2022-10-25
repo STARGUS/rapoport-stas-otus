@@ -23,6 +23,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
+  // @Roles('ADMIN')
   async getAllUsers() {
     console.log('hi');
     const users = await this.userService.findAll();
@@ -30,22 +31,21 @@ export class UserController {
   }
 
   @Get(':id')
+  @Roles('USER')
   async getUserById(@Param('id', ParseIntPipe) id: number) {
     const user = await this.userService.findOneById(id);
-
     if (!user) {
       throw new NotFoundException('User not found');
     }
-
     return { user };
   }
 
-  @Post('registration')
-  //@Redirect('/', 301)
-  async createUser(@Body() data: UserDto) {
-    const user = await this.userService.createUser(data);
-    return { url: '/' };
-  }
+  // @Post('registration')
+  // //@Redirect('/', 301)
+  // async createUser(@Body() data: UserDto) {
+  //   const user = await this.userService.createUser(data);
+  //   // return { url: '/' };
+  // }
 
   @Post('role')
   @Roles('ADMIN')
@@ -55,6 +55,7 @@ export class UserController {
   }
 
   @Get('role')
+  @Roles('ADMIN')
   async findRole() {
     console.log('kuku');
     const role = await this.userService.findRole();
@@ -62,6 +63,7 @@ export class UserController {
   }
 
   @Post(':id/photo')
+  @Roles('USER')
   @UseInterceptors(FileInterceptor('file'))
   async editPhoto(
     @UploadedFile() file: Express.Multer.File,
