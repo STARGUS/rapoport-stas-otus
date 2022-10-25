@@ -1,10 +1,6 @@
-/*
-https://docs.nestjs.com/controllers#controllers
-*/
-
 import { Controller, Post, Response, Request, Body } from '@nestjs/common';
-import { UserDto } from '../user/dto/user.service.dto';
 import { AuthService } from './auth.service';
+import { UserRegisterDto } from './dto/user-registration.dto';
 
 @Controller('api')
 export class AuthController {
@@ -16,7 +12,7 @@ export class AuthController {
   }
 
   @Post('/registration')
-  async reg(@Request() req, @Response() res, @Body() data: UserDto) {
+  async reg(@Request() req, @Response() res, @Body() data: UserRegisterDto) {
     return await this.authService.reg({ res, data });
   }
 }

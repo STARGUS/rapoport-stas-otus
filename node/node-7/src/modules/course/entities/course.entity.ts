@@ -10,6 +10,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
+import { CourseDto } from '../dto';
 
 @Entity()
 export class Course {
@@ -35,8 +36,10 @@ export class Course {
   public photoMiniTitle: Photo;
 
   @CreateDateColumn()
-  createdAt: Date;
+  private createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  private updatedAt: Date;
+
+  dtoClass = CourseDto;
 }

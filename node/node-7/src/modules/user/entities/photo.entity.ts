@@ -31,7 +31,7 @@ export class Photo {
   @Column({ default: true })
   isPublished: boolean;
 
-  @ManyToOne(() => User, (user) => user.photos)
+  @ManyToOne(() => User, (user) => user.avatar)
   user: User; // У одного пользователя 1 фотограция
 
   @ManyToOne(() => Course, (course) => course.photoMiniTitle)

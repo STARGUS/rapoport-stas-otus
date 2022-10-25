@@ -8,19 +8,10 @@ import {
   UpdateDateColumn,
   JoinTable,
 } from 'typeorm';
-import {
-  IsDate,
-  IsDefined,
-  IsEmail,
-  IsNotEmpty,
-  IsPhoneNumber,
-  IsString,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
 import { Role } from './role.entity';
 import { Photo } from './photo.entity';
 import { Course } from 'src/modules/course/entities';
+import { UserDto } from '../dto';
 
 @Entity('users')
 export class User {
@@ -28,52 +19,41 @@ export class User {
   public id: number;
 
   @Column({ nullable: false, default: '' })
-  public firstname: string;
+  public firstName: string;
 
   @Column({ nullable: false, default: '' })
-  public lastname: string;
+  public lastName: string;
 
-  @IsEmail()
   @Column({ unique: true })
   public email: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @MinLength(6)
-  @MaxLength(16)
   @Column()
   public password: string;
 
-  @IsPhoneNumber()
   @Column({ nullable: false, default: '' })
-  @IsDefined()
-  public phone_number: string;
+  public phoneNumber: string;
 
-  @IsDate()
   @Column({ nullable: false, default: () => 'now()' })
-  @IsDefined()
-  public birthdate: Date;
+  public birthday: Date;
 
   @Column({ nullable: false, default: '' })
-  @IsDefined()
   public country: string;
 
   @Column({ nullable: false, default: '' })
-  @IsDefined()
   public city: string;
 
   @OneToMany((type) => Photo, (photo) => photo.user)
-  public photos: Photo[];
+  public avatar: Photo;
 
   @ManyToMany(() => Role, (role) => role.userRole)
   @JoinTable()
   public role: Role[];
 
   @CreateDateColumn()
-  createdAt: Date;
+  private createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  private updatedAt: Date;
 
   //Course
   @ManyToMany(() => Course, (course) => course.access)
@@ -83,4 +63,6 @@ export class User {
   @OneToMany(() => Course, (course) => course.author)
   @JoinTable()
   public courseAdmin: Course[]; //Список Созданных курсов
+
+  dtoClass = UserDto;
 }

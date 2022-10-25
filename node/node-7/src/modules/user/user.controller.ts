@@ -6,17 +6,15 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Redirect,
-  Render,
   UploadedFile,
-  UseGuards,
+  Request,
   UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserDto } from './dto/user.service.dto';
 import { Express } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Roles } from '../../decorators/roles.decorator';
+import { RoleDto } from './dto';
 
 @Controller('users')
 export class UserController {
@@ -39,35 +37,27 @@ export class UserController {
     return { user };
   }
 
-  // @Post('registration')
-  // //@Redirect('/', 301)
-  // async createUser(@Body() data: UserDto) {
-  //   const user = await this.userService.createUser(data);
-  //   // return { url: '/' };
-  // }
-
   @Post('role')
   @Roles()
-  async createRole(@Body() data: string) {
-    const role = await this.userService.createRole(data);
+  async createRole(@Body() _role: RoleDto) {
+    const role = await this.userService.createRole(_role);
     return { role };
   }
 
   @Get('role')
   @Roles()
   async findRole() {
-    console.log('kuku');
     const role = await this.userService.findRole();
     return { role };
   }
 
-  @Post(':id/photo')
+  @Post('/editPhoto')
   @Roles('USER')
   @UseInterceptors(FileInterceptor('file'))
   async editPhoto(
     @UploadedFile() file: Express.Multer.File,
-    @Param('id') id: ParseIntPipe,
     @Body() photodata,
+    @Request() req,
   ) {
     const photo = {
       name: file['originalname'],
@@ -75,7 +65,7 @@ export class UserController {
       views: file['size'],
       ...photodata,
     };
-    const user = await this.userService.editPhoto({ photo, id });
+    const user = await this.userService.editPhoto({ photo, id: req.user.id });
     return { user };
   }
 }

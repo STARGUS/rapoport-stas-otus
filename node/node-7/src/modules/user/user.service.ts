@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Photo, User, Role } from './entities';
 import { hash } from 'bcrypt';
+import { RoleDto, UserDto } from './dto';
+import { UserRegisterDto } from '../auth/dto/user-registration.dto';
 
 @Injectable()
 export class UserService {
@@ -15,11 +17,11 @@ export class UserService {
     private readonly photoRepository: Repository<Photo>,
   ) {}
 
-  findAll() {
-    return this.userRepository.find({
+  async findAll() {
+    return await this.userRepository.find({
       relations: {
         role: true,
-        photos: true,
+        avatar: true,
         courseAccess: true,
         courseAdmin: true,
       },
@@ -29,14 +31,14 @@ export class UserService {
     try {
       return this.userRepository.findOne({
         where: { email },
-        select: { email: true, password: true, id: true, firstname: true },
+        select: { email: true, password: true, id: true, firstName: true },
       });
     } catch (error) {
       throw new Error('Method not implemented.');
     }
   }
-  async createRole(data) {
-    const role = await this.roleRepository.save(data);
+  async createRole(_roleDto: RoleDto) {
+    const role = await this.roleRepository.save(_roleDto);
     return role;
   }
   async findRole() {
@@ -44,13 +46,13 @@ export class UserService {
     console.log(data);
     return data;
   }
-  async createUser(data) {
-    const newPassword = await hash(data.password, 10);
-    data.password = newPassword;
-    data.role = await this.roleRepository.find({
-      where: { name: !!data.role ? In(data.role) : 'USER' }, // приходит массив. нужно его обработать и выдать тоолько сущестующие рооли
+  async createUser(_userDto: UserDto): Promise<User> {
+    const newPassword = await hash(_userDto.password, 10);
+    _userDto.password = newPassword;
+    _userDto.role = await this.roleRepository.find({
+      where: { name: !!_userDto.role ? In(_userDto.role) : 'USER' }, // приходит массив. нужно его обработать и выдать тоолько сущестующие рооли
     });
-    return await this.userRepository.save(data);
+    return this.userRepository.save(_userDto);
   }
 
   async findOneById(id: number) {
@@ -74,10 +76,10 @@ export class UserService {
   async editPhoto({ photo, id }) {
     const dataUser = await this.userRepository.findOne({
       where: { id: id },
-      relations: { photos: true },
+      relations: { avatar: true },
     });
     const photos = await this.photoRepository.save(photo);
-    dataUser.photos.push(photos);
+    dataUser.avatar = photos;
     const user = await this.userRepository.save(dataUser);
     return user;
   }

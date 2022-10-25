@@ -18,7 +18,7 @@ export class AuthService {
       res.cookie('authorization', 'Bearer ' + token);
       return res.status(201).send({
         token,
-        login: { name: createUser.firstname, email: createUser.email },
+        login: { name: createUser.firstName, email: createUser.email },
       });
     } else {
       return res.status(401).send({ message: 'Ошибка регистрации' });
@@ -38,7 +38,7 @@ export class AuthService {
         }
         return res.status(201).send({
           token,
-          login: { name: user.firstname, email: user.email },
+          login: { name: user.firstName, email: user.email },
         });
       } else {
         return res
