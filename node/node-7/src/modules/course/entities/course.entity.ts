@@ -1,9 +1,11 @@
+import { Photo } from 'src/modules/user/entities';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -20,19 +22,22 @@ export class Course {
       return { id: user.id, name: user.firstname + ' ' + user.lastname };
     },
   )
-  author: User; // Автор его имя и id
+  public author: User; // Автор его имя и id
 
   @ManyToMany(() => User, (user) => user.id)
-  permit: User[]; //Список разрешенных пользователей
+  public permit: User[]; //Список разрешенных пользователей
 
   @Column()
-  title: string;
+  public title: string;
 
   @Column({ unsigned: false })
-  description: string;
+  public description: string;
 
-  @Column({ unsigned: false })
-  photo: string; // Одна картинка, так что просто путь к ней
+  @OneToMany((type) => Photo, (photo) => photo.courseTitle)
+  public photoTitle: Photo;
+
+  @OneToMany((type) => Photo, (photo) => photo.courseMiniTitle)
+  public photoMiniTitle: Photo;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -1,3 +1,4 @@
+import { Course } from 'src/modules/course/entities';
 import {
   Column,
   CreateDateColumn,
@@ -6,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import {User} from './user.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Photo {
@@ -31,7 +32,13 @@ export class Photo {
   isPublished: boolean;
 
   @ManyToOne(() => User, (user) => user.photos)
-  user: User;
+  user: User; // У одного пользователя 1 фотограция
+
+  @ManyToOne(() => Course, (course) => course.photoMiniTitle)
+  courseMiniTitle: Course; // У одного курса 1 фотограция маленького размера
+
+  @ManyToOne(() => Course, (course) => course.photoTitle)
+  courseTitle: Course; // У одного курса 1 фотограция
 
   @CreateDateColumn()
   createdAt: Date;
