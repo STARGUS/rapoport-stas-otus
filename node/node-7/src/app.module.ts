@@ -12,6 +12,8 @@ import { UserService } from './modules/user/user.service';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { Photo, Role, User } from './modules/user/entities';
 import { Course } from './modules/course/entities';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -23,8 +25,14 @@ import { Course } from './modules/course/entities';
       synchronize: true,
       entities: [User, Role, Photo, Course],
     }), // подключаем БД
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, 'client'),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, 'client'),
+    // }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
+      debug: true
     }),
   ],
   controllers: [AppController],

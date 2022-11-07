@@ -7,9 +7,9 @@ import { join } from 'path';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  //@Render('index')
-  root(@Response() res) {
-   return res.sendfile(join(__dirname, 'client', 'index.html'));
-  }
+  // @Get()
+  // //@Render('index')
+  // root(@Response() res) {
+  //  return res.sendfile(join(__dirname, 'client', 'index.html'));
+  // }
 }

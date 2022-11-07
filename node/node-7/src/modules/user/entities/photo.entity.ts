@@ -8,36 +8,47 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
+import { Field, Int, ObjectType, InputType } from '@nestjs/graphql';
 
 @Entity()
+@ObjectType()
 export class Photo {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
+  @Field({ nullable: false })
   id: string;
 
   @Column({
     length: 100,
   })
+  @Field({ nullable: false })
   name: string;
 
   @Column('text', { default: ' ' })
-  description: string;
+  @Field({ nullable: true })
+  description?: string;
 
   @Column()
+  @Field({ nullable: false })
   filename: string;
 
   @Column('bigint')
+  @Field(() => Int, { nullable: false })
   views: number;
 
   @Column({ default: true })
-  isPublished: boolean;
+  @Field({ nullable: true })
+  isPublished?: boolean;
 
   @ManyToOne(() => User, (user) => user.avatar)
+  @Field((type) => User, { nullable: true })
   user: User; // У одного пользователя 1 фотограция
 
   @ManyToOne(() => Course, (course) => course.photoMiniTitle)
+  @Field((type) => Course, { nullable: true })
   courseMiniTitle: Course; // У одного курса 1 фотограция маленького размера
 
   @ManyToOne(() => Course, (course) => course.photoTitle)
+  @Field((type) => Course, { nullable: true })
   courseTitle: Course; // У одного курса 1 фотограция
 
   @CreateDateColumn()
@@ -45,4 +56,10 @@ export class Photo {
 
   @UpdateDateColumn()
   updatedAt: Date;
+}
+
+@InputType()
+export class PhotoInput {
+  @Field({ nullable: false })
+  name: string;
 }
