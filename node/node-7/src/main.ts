@@ -11,7 +11,7 @@ import { RoleGuard } from './guards/role.guard';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
-  app.use(helmet());
+  // app.use(helmet()); // отключить для запуска /graphql
   app.use(cookieParser());
   // app.useGlobalGuards();
   // app.use('/', express.static(join(__dirname, 'client')));

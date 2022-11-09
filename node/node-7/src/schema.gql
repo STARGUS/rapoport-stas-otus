@@ -1,0 +1,107 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Comment {
+  author: User
+  courseId: Course
+  lessonId: Lesson
+  text: String
+}
+
+type Course {
+  access: [User!]!
+  author: User
+  comment: [Comment!]
+  description: String
+  id: ID!
+  lesson: [Lesson!]
+  photoMiniTitle: Photo
+  photoTitle: Photo
+  title: String!
+}
+
+input CourseInput {
+  description: String!
+  title: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Lesson {
+  comment: [Comment!]
+  courseId: Course
+  description: String
+  material: [Materail!]
+  title: String!
+}
+
+type Materail {
+  description: String
+  lessonId: Lesson
+  title: String!
+  url: String
+}
+
+type Mutation {
+  createCourse(data: CourseInput!, user: String!): Course!
+  createUser(data: UserInput!): User!
+}
+
+type Photo {
+  courseMiniTitle: Course
+  courseTitle: Course
+  description: String
+  filename: String!
+  id: ID!
+  isPublished: Boolean
+  name: String!
+  user: User
+  views: Int!
+}
+
+type Query {
+  course(id: String!): Course
+  courses: [Course!]
+  lesson(id: String!): Lesson
+  lessons(id: String!): [Lesson!]
+  user(id: String!): User
+  users: [User!]
+}
+
+type Role {
+  id: ID!
+  name: String!
+  userRole: [User!]
+}
+
+type User {
+  avatar: Photo
+  birthday: DateTime
+  city: String
+  comment: [Comment!]
+  country: String
+  courseAccess: [Course!]
+  courseAdmin: [Course!]
+  email: String!
+  firstName: String!
+  id: ID!
+  lastName: String
+  password: String!
+  phoneNumber: String
+  role: [Role!]
+}
+
+input UserInput {
+  birthday: DateTime
+  city: String
+  country: String
+  email: String!
+  firstName: String!
+  lastName: String
+  password: String!
+  phoneNumber: String
+}

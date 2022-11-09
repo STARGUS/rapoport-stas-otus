@@ -1,6 +1,19 @@
 import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
-import { RoleGuard } from 'src/guards/role.guard';
+import { RoleGuard, CourseGuard } from 'src/guards';
 
 export function Roles(...roles: string[]) {
   return applyDecorators(SetMetadata('roles', roles), UseGuards(RoleGuard));
+}
+type Roles = Array<string>;
+interface CourseRole {
+  role: Roles;
+  type: string;
+}
+
+export function CourseRoles(...roles) {
+  return applyDecorators(
+    SetMetadata('courseAccess', roles),
+    // SetMetadata('type', type),
+    UseGuards(CourseGuard),
+  );
 }

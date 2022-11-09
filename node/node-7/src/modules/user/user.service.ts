@@ -76,7 +76,7 @@ export class UserService {
         id: true,
         role: true,
       },
-      relations: { role: true },
+      relations: { role: true, courseAccess: true, courseAdmin: true },
     });
   }
 
@@ -95,5 +95,17 @@ export class UserService {
   // Удаление фото
   async deletePhoto({ photo, id }) {
     return this.roleRepository.delete({ id: photo.id });
+  }
+
+  async getUser(access: User[]) {
+    console.log(`Getting user with id ${access}...`);
+    return access;
+  }
+  findCourse(id) {
+    return this.userRepository.findOne({
+      where: {
+        id,
+      },
+    });
   }
 }

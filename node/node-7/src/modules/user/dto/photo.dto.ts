@@ -5,13 +5,13 @@ export class PhotoDto {
   readonly name: string;
 
   @IsOptional()
-  readonly description: string;
+  readonly description?: string;
 
   readonly filename: string;
 
   readonly views: number;
 
-  readonly isPublished: boolean;
+  readonly isPublished?: boolean;
 
   constructor(photo: Photo) {
     this.name = photo.name;
