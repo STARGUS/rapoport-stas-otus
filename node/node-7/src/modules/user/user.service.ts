@@ -96,4 +96,16 @@ export class UserService {
   async deletePhoto({ photo, id }) {
     return this.roleRepository.delete({ id: photo.id });
   }
+
+  async getUser(access: User[]) {
+    console.log(`Getting user with id ${access}...`);
+    return access;
+  }
+  findCourse(id) {
+    return this.userRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
 }

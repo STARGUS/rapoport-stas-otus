@@ -1,4 +1,4 @@
-import { Photo } from 'src/modules/user/entities';
+import { Photo, User } from 'src/modules/user/entities';
 import {
   Column,
   CreateDateColumn,
@@ -10,14 +10,15 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../../user/entities/user.entity';
 import { CourseDto } from '../dto';
-import { Field, Int, ObjectType, InputType } from '@nestjs/graphql';
+import { Field, ID, ObjectType, InputType } from '@nestjs/graphql';
+import { Lesson, Comment } from '.';
 
-@Entity()
+@Entity('course')
 @ObjectType()
 export class Course {
   @PrimaryGeneratedColumn('uuid')
+  @Field((type) => ID)
   public id: string;
 
   @ManyToOne(() => User, (user) => user.courseAdmin)
@@ -25,7 +26,7 @@ export class Course {
   public author: User;
 
   @ManyToMany(() => User, (user) => user.courseAccess)
-  @Field((type) => [User], { nullable: true })
+  @Field((type) => [User])
   public access: User[]; //Список разрешенных пользователей
 
   @Column({ unique: true, nullable: false }) //Уникальное имя курса и обязательное поле
@@ -44,6 +45,14 @@ export class Course {
   @Field((type) => Photo, { nullable: true })
   public photoMiniTitle: Photo;
 
+  @ManyToOne((type) => Lesson, (lesson) => lesson.courseId)
+  @Field((type) => [Lesson], { nullable: true })
+  public lesson: Lesson[];
+
+  @OneToMany((type) => Comment, (com) => com.courseId)
+  @Field((type) => [Comment], { nullable: true })
+  public comment: Comment[];
+
   @CreateDateColumn()
   private createdAt: Date;
 
@@ -54,10 +63,11 @@ export class Course {
 }
 
 @InputType()
-export class CpourseInput {
+export class CourseInput {
   @Field({ nullable: false })
   title: string;
 
   @Field({ nullable: false })
   description: string;
+  
 }

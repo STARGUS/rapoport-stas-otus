@@ -7,29 +7,30 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Lesson } from './';
+import { User } from '../../user/entities/user.entity';
+import { Lesson, Course } from './';
 
-@Entity('material')
+@Entity('comment')
 @ObjectType()
-export class Materail {
+export class Comment {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @ManyToOne((type) => Lesson, (lesson) => lesson.material)
+  @ManyToOne((type) => Lesson, (lesson) => lesson.comment)
   @Field((type) => Lesson, { nullable: true })
   lessonId: Lesson;
 
-  @Column({ unique: true, nullable: false }) //Уникальное имя курса и обязательное поле
-  @Field({ nullable: false })
-  public title: string;
+  @ManyToOne((type) => Course, (course) => course.comment)
+  @Field((type) => Course, { nullable: true })
+  courseId: Course;
 
   @Column({ default: ' ', nullable: true })
   @Field({ nullable: true })
-  public description: string;
+  text: string;
 
-  @Column({ nullable: false })
-  @Field({ nullable: true })
-  url: string;
+  @ManyToOne(() => User, (user) => user.comment)
+  @Field((type) => User, { nullable: true })
+  author: User;
 
   @CreateDateColumn()
   private createdAt: Date;

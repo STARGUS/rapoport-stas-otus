@@ -1,0 +1,558 @@
+{
+	"info": {
+		"_postman_id": "f52e223d-b6c0-4231-be90-0aab2794d029",
+		"name": "Node-7 Postgres",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16158323"
+	},
+	"item": [
+		{
+			"name": "Course",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createCourse",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"JS9\",\r\n    \"description\": \"Мой первый курс9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/course",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editCourse",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCourse",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/comment",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editComment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/comment/{{com_id_1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"comment",
+								"{{com_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/comment/{{com_id_1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"comment",
+								"{{com_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createAccess",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Stanislav@ya.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/editAccess",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"editAccess"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editAccess",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/editAccess/{{acc_id_1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"editAccess",
+								"{{acc_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAccess",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/editAccess/{{acc_id_1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"editAccess",
+								"{{acc_id_1}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "find Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/users",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Stanislav@ya.ru\",\r\n    \"password\": \"123456\",\r\n    \"firstName\": \"Stanislav\",\r\n    \"lastName\": \"Rapoport\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/registration",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Stas2@ya.ru\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/login",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findRole",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/users/role",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"users",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createRole",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"MODERATOR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/users/role",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"users",
+								"role"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Photo",
+			"item": [
+				{
+					"name": "Create photo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Станислав/Pictures/Работа/Телега Авторизация/1.PNG"
+								},
+								{
+									"key": "name",
+									"value": "test2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "test desc5",
+									"type": "text"
+								},
+								{
+									"key": "filename",
+									"value": "file.jpeg",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "views",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "isPublished",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{HOST}}/users/f7c602b2-730e-4f84-bfcf-21afdee416a5/photo",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"users",
+								"f7c602b2-730e-4f84-bfcf-21afdee416a5",
+								"photo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lesson",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/lesson",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"lesson"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createLesson",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/lesson",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"lesson"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editLEsson",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/lesson/{{les_id_1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"lesson",
+								"{{les_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteLesson",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/lesson/{{les_id_1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"lesson",
+								"{{les_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/lesson/{{les_id_1}}/comment",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"lesson",
+								"{{les_id_1}}",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editComment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/lesson/{{les_id_1}}/comment/{{com_les_id_1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"lesson",
+								"{{les_id_1}}",
+								"comment",
+								"{{com_les_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/course/{{id_1}}/lesson/{{les_id_1}}/comment/{{com_les_id_1}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"course",
+								"{{id_1}}",
+								"lesson",
+								"{{les_id_1}}",
+								"comment",
+								"{{com_les_id_1}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

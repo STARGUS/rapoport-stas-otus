@@ -1,11 +1,12 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
-import { Field, Int, ObjectType, InputType } from '@nestjs/graphql';
+import { Field, ID, ObjectType, InputType } from '@nestjs/graphql';
 @Entity()
 @ObjectType()
 export class Role {
   @PrimaryGeneratedColumn('uuid')
   @Field({ nullable: false })
+  @Field((type) => ID)
   public id: string;
 
   @Column({ type: 'varchar', unique: true, default: () => 'USER' })

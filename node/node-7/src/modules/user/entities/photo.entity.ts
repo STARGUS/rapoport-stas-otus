@@ -8,13 +8,14 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
-import { Field, Int, ObjectType, InputType } from '@nestjs/graphql';
+import { Field, Int, ObjectType, InputType, ID } from '@nestjs/graphql';
 
 @Entity()
 @ObjectType()
 export class Photo {
   @PrimaryGeneratedColumn('uuid')
   @Field({ nullable: false })
+  @Field((type) => ID)
   id: string;
 
   @Column({

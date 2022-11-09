@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CourseModule } from '../course/course.module';
+import { CourseService } from '../course/course.service';
 import { Photo, Role, User } from './entities';
 import { UserController } from './user.controller';
 import { UserResolver } from './user.resolver';

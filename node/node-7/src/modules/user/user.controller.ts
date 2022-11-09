@@ -20,6 +20,8 @@ import { RoleDto } from './dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  //------------------------------------------------------
+  //User
   @Get()
   // @Roles('ADMIN')
   async getAllUsers() {
@@ -37,6 +39,8 @@ export class UserController {
     return { user };
   }
 
+  //------------------------------------------------------
+  //Role
   @Post('role')
   @Roles()
   async createRole(@Body() _role: RoleDto) {
@@ -51,6 +55,8 @@ export class UserController {
     return { role };
   }
 
+  //------------------------------------------------------
+  //Photo
   @Post('/editPhoto')
   @Roles('USER')
   @UseInterceptors(FileInterceptor('file'))

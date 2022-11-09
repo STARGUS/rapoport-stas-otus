@@ -10,15 +10,16 @@ import {
 } from 'typeorm';
 import { Role } from './role.entity';
 import { Photo } from './photo.entity';
-import { Course } from 'src/modules/course/entities';
+import { Course, Comment } from 'src/modules/course/entities';
 import { UserDto } from '../dto';
-import { Field, ObjectType, InputType } from '@nestjs/graphql';
+import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 
 @Entity('users')
 @ObjectType()
 export class User {
   @PrimaryGeneratedColumn('uuid')
   @Field({ nullable: false })
+  @Field((type) => ID)
   public id: string;
 
   @Column({ nullable: false, default: '' })
@@ -78,6 +79,11 @@ export class User {
   @JoinTable()
   @Field((type) => [Course], { nullable: true })
   public courseAdmin: Course[]; //Список Созданных курсов
+
+  @OneToMany(() => Comment, (com) => com.author)
+  @Field((type) => [Comment], { nullable: true })
+  @JoinTable()
+  public comment: Comment[];
 
   dtoClass = UserDto;
 }
