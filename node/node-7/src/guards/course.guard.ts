@@ -26,13 +26,15 @@ export class CourseGuard implements CanActivate {
       return false;
     };
     if (!!user) {
-      if (accessData(user.courseAdmin, 'ADMIN')) return true;
-      if (!!params.lessonId) {
-        return (
-          accessData(user.courseAdmin, 'MODERATOR') ||
-          accessData(user.courseAccess, 'USER')
-        );
-      }
+      if (
+        accessData(user.courseAdmin, 'ADMIN') ||
+        user.role?.map((el) => el.name).some((el) => ['ADMIN'].includes(el))
+      )
+        return true;
+      return (
+        accessData(user.courseAdmin, 'MODERATOR') ||
+        accessData(user.courseAccess, 'USER')
+      );
     } else {
       return false;
     }

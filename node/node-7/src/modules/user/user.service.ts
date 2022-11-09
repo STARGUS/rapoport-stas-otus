@@ -76,7 +76,7 @@ export class UserService {
         id: true,
         role: true,
       },
-      relations: { role: true },
+      relations: { role: true, courseAccess: true, courseAdmin: true },
     });
   }
 

@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { CourseRoles, Roles } from 'src/decorators/';
 import { CourseService } from './course.service';
-import { CourseUpdateDto } from './dto';
+import { CourseDto, CourseUpdateDto } from './dto';
 import { LessonInput } from './entities';
 
 @Controller('course')
@@ -32,7 +32,7 @@ export class CourseController {
 
   @Put(':id')
   @Roles()
-  async editCourse(@Body() body: CourseUpdateDto, @Param('id') id: string) {
+  async editCourse(@Body() body, @Param('id') id: string) {
     return this._courseService.updateCourse(body, id);
   }
 
@@ -73,6 +73,14 @@ export class CourseController {
 
   //------------------------------------------------------
   //Comment-Course
+  @Get(':id/comment')
+  // @CourseRoles('MODERATOR', 'USER')
+  async getCourseComment(@Param('id') id: string) {
+    return this._courseService.getCourseComment({
+      courseId: id,
+    });
+  }
+
   @Post(':id/comment')
   @CourseRoles('MODERATOR', 'USER')
   async createCourseComment(
@@ -92,16 +100,11 @@ export class CourseController {
   @CourseRoles('MODERATOR', 'USER')
   async editCourseComment(
     @Body('text') data: string,
-    @Request() { user },
-    @Param('id') id: string,
     @Param('commentId') commentId: string,
   ) {
-    const userId = user.id;
     return this._courseService.editCourseComment({
       id: commentId,
       text: data,
-      author: { id: userId },
-      courseId: id,
     });
   }
 
@@ -134,19 +137,15 @@ export class CourseController {
 
   @Put(':id/lesson/:lessonId')
   @CourseRoles('MODERATOR')
-  async editLesson(
-    @Body() body,
-    @Request() { user },
-    @Param('id') id: string,
-    @Param('lessonId') lessonId: string,
-  ) {}
+  async editLesson(@Body() body, @Param('lessonId') lessonId: string) {
+    return this._courseService.editLesson(lessonId, { ...body });
+  }
 
   @Delete(':id/lesson/:lessonId')
   @CourseRoles('MODERATOR')
-  async deleteLesson(
-    @Param('id') id: string,
-    @Param('lessonId') lessonId: string,
-  ) {}
+  async deleteLesson(@Param('lessonId') lessonId: string) {
+    return this._courseService.removeLesson({ id: lessonId });
+  }
 
   //------------------------------------------------------
   //Comment-Lesson

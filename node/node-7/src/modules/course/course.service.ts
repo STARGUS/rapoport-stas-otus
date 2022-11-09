@@ -45,7 +45,12 @@ export class CourseService {
 
   async updateCourse(data: CourseUpdateDto, id: string) {
     try {
-      return await this.courseRepository.update(id, data);
+      const result = await this.courseRepository.update(id, data);
+      if (!!result.affected) {
+        return this.courseRepository.findOneBy({ id });
+      } else {
+        throw new Error('Error, data entered incorrectly. ');
+      }
     } catch (error) {
       throw new Error('Method not implemented. ' + error);
     }
@@ -53,7 +58,11 @@ export class CourseService {
 
   async removeCourse(id: string) {
     try {
-      return this.courseRepository.delete(id);
+      return (
+        !!(await this.courseRepository.delete(id))?.affected && {
+          message: 'Выполнено! Курс удален.',
+        }
+      );
     } catch (error) {
       throw new Error('Method not implemented. ' + error);
     }
@@ -98,6 +107,20 @@ export class CourseService {
   }
 
   // Comment ----------------------------------------------
+  async getCourseComment({ courseId }) {
+    try {
+      return (
+        await this.courseRepository.findOne({
+          where: { id: courseId },
+          select: { comment: true },
+          relations: { comment: true },
+        })
+      )?.comment;
+    } catch (err) {
+      throw new Error('Method not implemented. ' + err);
+    }
+  }
+
   async createCourseComment(data: {
     id?;
     courseId?;
@@ -116,13 +139,9 @@ export class CourseService {
     }
   }
 
-  async editCourseComment(data: { id?; courseId?; author?; text?; lessonId? }) {
+  async editCourseComment(data: { id?: string; text?: string }) {
     try {
-      data = Object.entries(data).reduce(
-        (a, [k, v]) => (v ? ((a[k] = v), a) : a),
-        {},
-      );
-      return this.commentRepository.save(data);
+      return this.commentRepository.update(data.id, { text: data.text });
     } catch (error) {
       throw new Error('Method not implemented. ' + error);
     }
@@ -164,6 +183,22 @@ export class CourseService {
         ...data,
         courseId: { id: courseId },
       });
+    } catch (error) {
+      throw new Error('Method not implemented. ' + error);
+    }
+  }
+
+  async editLesson(id: string, data: LessonInput) {
+    try {
+      return this.lessonRepository.update(id, data);
+    } catch (error) {
+      throw new Error('Method not implemented. ' + error);
+    }
+  }
+
+  async removeLesson(id: { id: string }) {
+    try {
+      return this.lessonRepository.delete(id);
     } catch (error) {
       throw new Error('Method not implemented. ' + error);
     }
