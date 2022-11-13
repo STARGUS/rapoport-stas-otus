@@ -2,11 +2,9 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
-import { AuthMiddleware } from './middleware/auth.middleware';
-import * as express from 'express';
-import { join } from 'path';
 import * as cookieParser from 'cookie-parser';
-import { RoleGuard } from './guards/role.guard';
+import { configService } from './config/config.service';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,6 +14,6 @@ async function bootstrap() {
   // app.useGlobalGuards();
   // app.use('/', express.static(join(__dirname, 'client')));
   // app.use(AuthMiddleware); //Глобальный Middlewsre
-  await app.listen(80);
+  await app.listen(configService.getPort());
 }
 bootstrap();
