@@ -10,6 +10,6 @@ export class AppController {
   @Get()
   //@Render('index')
   root(@Response() res) {
-   return res.sendfile(join(__dirname, 'client', 'index.html'));
+   return res.sendfile(join(__dirname, 'Client', 'index.html'));
   }
 }
