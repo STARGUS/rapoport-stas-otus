@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'Node-8-Deploy-project',
-      script: '.dist/main.js',
+      script: '.main.js',
       watch: '.',
     },
   ],
@@ -15,8 +15,7 @@ module.exports = {
       repo: 'GIT_REPOSITORY',
       path: 'DESTINATION_PATH',
       'pre-deploy-local': '',
-      'post-deploy':
-        'npm install && pm2 reload ecosystem.config.js -i max',
+      'post-deploy': 'npm install && pm2 reload ecosystem.config.js -i max',
       'pre-setup': '',
     },
   },
