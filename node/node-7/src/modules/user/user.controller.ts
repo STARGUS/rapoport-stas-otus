@@ -15,6 +15,8 @@ import { Express } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Roles } from '../../decorators/roles.decorator';
 import { RoleDto } from './dto';
+import { diskStorage } from 'multer';
+import { extname, join } from 'path';
 
 @Controller('users')
 export class UserController {
@@ -59,7 +61,20 @@ export class UserController {
   //Photo
   @Post('/editPhoto')
   @Roles('USER')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: join(__dirname, '..', '..', 'photo'),
+        filename: (req, file, cb) => {
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          return cb(null, `${randomName}${extname(file.originalname)}`);
+        },
+      }),
+    }),
+  )
   async editPhoto(
     @UploadedFile() file: Express.Multer.File,
     @Body() photodata,
