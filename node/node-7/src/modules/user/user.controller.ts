@@ -18,7 +18,7 @@ import { RoleDto } from './dto';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 
-@Controller('users')
+@Controller('api/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
