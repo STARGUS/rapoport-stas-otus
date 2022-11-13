@@ -16,6 +16,6 @@ async function bootstrap() {
   // app.useGlobalGuards();
   // app.use('/', express.static(join(__dirname, 'client')));
   // app.use(AuthMiddleware); //Глобальный Middlewsre
-  await app.listen(3000);
+  await app.listen(80);
 }
 bootstrap();
