@@ -71,7 +71,12 @@ export class CourseService {
   // Access ----------------------------------------------
   async getAccess(id: string): Promise<User[]> {
     try {
-      return (await this.courseRepository.findOneBy({ id }))?.access;
+      return (
+        await this.courseRepository.findOne({
+          where: { id },
+          relations: { access: true },
+        })
+      )?.access;
     } catch (error) {
       throw new Error('Method not implemented. ' + error);
     }
@@ -98,8 +103,13 @@ export class CourseService {
 
   async removeAccessCourse(id: string, userId: string) {
     try {
-      const data = await this.courseRepository.findOneBy({ id });
-      data.access = data.access.filter((el) => el.id !== userId);
+      const data = await this.courseRepository.findOne({
+        where: { id },
+        relations: { access: true },
+      });
+      data.access = data.access
+        .map((el) => el.id !== userId && el)
+        .filter((el) => !!el);
       return await this.courseRepository.save(data);
     } catch (error) {
       throw new Error('Method not implemented. ' + error);

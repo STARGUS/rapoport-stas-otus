@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { CourseRoles, Roles } from 'src/decorators/';
 import { CourseService } from './course.service';
-import { CourseDto, CourseUpdateDto } from './dto';
 import { LessonInput } from './entities';
 
 @Controller('course')
@@ -42,6 +41,14 @@ export class CourseController {
     return await this._courseService.removeCourse(id);
   }
 
+  //------------------------------------------------------
+  //Access
+  @Get(':id/access')
+  @CourseRoles('MODERATOR')
+  async getCourseAccess(@Param('id') id: string) {
+    return this._courseService.getAccess(id);
+  }
+
   @Post(':id/access')
   @CourseRoles('MODERATOR')
   async createCourseAccess(
@@ -65,9 +72,9 @@ export class CourseController {
   @CourseRoles('MODERATOR')
   async deleteCourseAccess(
     @Body('id') userId: string,
-    @Request() { user },
     @Param('id') id: string,
   ) {
+    console.log(userId);
     return this._courseService.removeAccessCourse(id, userId);
   }
 
