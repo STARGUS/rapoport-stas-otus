@@ -1,0 +1,13 @@
+version: "3.9" # optional since v1.27.0
+services:
+db:
+  image: mongo
+  hostname: mongo-test
+  tty: true
+  stdin_open: true
+  restart: "unless-stopped"
+  environment:
+    MONGO_INITDB_ROOT_USERNAME: admin
+    MONGO_INITDB_ROOT_PASSWORD: admin
+  ports:
+    - 27018:27017
