@@ -1,38 +1,12 @@
-const fs = require("fs");
-const resultSort = require("./result-sort");
-
-function mergeSort(num) {
-  //Сортировка каждого файла по отдельности
-  for (let i = 0; i < num; i++) {
-    console.log("Сортировка файла:", i);
-    let Array = fs.createReadStream(`./file${i}.txt`, {
-      highWaterMark: 2 * 1024 * 1024,
-      encoding: "utf8",
-    });
-    let write = fs.createWriteStream(`./fileRes${i}.txt`, "utf8");
-    sorting(Array).then(() => {
-      if (i == num - 1) setTimeout(() => resultSort(num, Sort), 100);
-    });
-    async function sorting(arr) {
-      for await (const chunk of arr) {
-        const numbers = chunk.split(",").map((el) => !!el && +el);
-        const resSortingNum = Sort(numbers);
-        write.write(resSortingNum.toString(), (err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }
-    }
-  }
-}
 function merge(arrFirst, arrSecond) {
   const arrSort = [];
   let i = (j = 0);
   // сравниваем два массива, поочередно сдвигая указатели
   while (true) {
     if (i < arrFirst.length && j < arrSecond.length) {
-      arrSort.push(arrFirst[i] < arrSecond[j] ? arrFirst[i++] : arrSecond[j++]);
+      arrSort.push(
+        +arrFirst[i] < +arrSecond[j] ? +arrFirst[i++] : +arrSecond[j++]
+      );
     } else {
       break;
     }
@@ -60,4 +34,4 @@ function Sort(arr) {
   return merge(Sort(arrLeft), Sort(arrRight));
 }
 
-module.exports = { mergeSort, Sort, merge };
+module.exports = { Sort, merge };
