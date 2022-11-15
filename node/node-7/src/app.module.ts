@@ -25,9 +25,9 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
       synchronize: true,
       entities: [User, Role, Photo, Course, Lesson, Materail, Comment],
     }), // подключаем БД
-    // ServeStaticModule.forRoot({
-    //   rootPath: join(__dirname, 'client'),
-    // }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, 'Client'),
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),

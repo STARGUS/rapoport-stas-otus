@@ -15,7 +15,7 @@
   "homepage": "https://github.com/STARGUS/rapoport-stas-otus#readme",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "nest build",
+    "build": "nest build && npm i pm2 -g",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:pm": "pm2 start dist/main.js -i max",

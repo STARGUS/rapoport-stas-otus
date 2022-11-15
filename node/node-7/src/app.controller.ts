@@ -10,8 +10,6 @@ export class AppController {
   @Get(':param')
   //@Render('index')
   root(@Response() res, @Param('param') param: string) {
-    if (!param.includes('api/'))
-      return res.sendfile(join(__dirname, 'Client', 'index.html'));
-    return;
+    return res.sendfile(join(__dirname, 'Client', 'index.html'));
   }
 }
