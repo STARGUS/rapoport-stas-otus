@@ -36,13 +36,13 @@ export class LessonResolver {
     private readonly userService: UserService,
   ) {}
 
-  @Query((returns) => Lesson, { name: 'lesson', nullable: true })
-  async getLessonById(@Args({ name: 'id' }) id: string) {
-    return await this.courseService.getLesson(id);
-  }
+  // @Query((returns) => Lesson, { name: 'lesson', nullable: true })
+  // async getLessonById(@Args({ name: 'id' }) id: string) {
+  //   return await this.courseService.getLesson(id);
+  // }
 
-  @Query((returns) => [Lesson], { name: 'lessons', nullable: true })
-  async getLessons(@Args({ name: 'id' }) id: string) {
-    return await this.courseService.getLessons(id);
-  }
+  // @Query((returns) => [Lesson], { name: 'lessons', nullable: true })
+  // async getLessons(@Args({ name: 'id' }) id: string) {
+  //   return await this.courseService.getLessons(id);
+  // }
 }

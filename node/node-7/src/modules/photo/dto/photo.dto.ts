@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { Photo, Role } from '../entities';
+import { Photo, Role } from '../../user/entities';
 
 export class PhotoDto {
   readonly name: string;

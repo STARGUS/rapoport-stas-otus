@@ -2,7 +2,7 @@ import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { User } from '../entities';
 import { PhotoDto, RoleDto } from '.';
-import { CourseDto } from 'src/modules/course/dto';
+import { CourseDto } from '../../course/dto';
 
 export class UserUpdateDto {
   @IsOptional()

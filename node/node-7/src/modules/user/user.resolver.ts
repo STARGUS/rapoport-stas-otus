@@ -8,9 +8,6 @@ import {
   Resolver,
   ResolveField,
 } from '@nestjs/graphql';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { Roles } from 'src/decorators/roles.decorator';
-import { Course, CourseInput } from '../course/entities';
 import { Photo, User, UserInput } from './entities';
 import { UserService } from './user.service';
 

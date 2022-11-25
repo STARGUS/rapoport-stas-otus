@@ -1,8 +1,8 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { keyJWT } from 'src/config/config.service';
-import { UserService } from 'src/modules/user/user.service';
+import { keyJWT } from '../config/config.service';
+import { UserService } from '../modules/user/user.service';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {

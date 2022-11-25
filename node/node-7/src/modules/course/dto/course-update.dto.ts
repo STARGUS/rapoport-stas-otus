@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { PhotoDto, UserUpdateDto } from 'src/modules/user/dto';
-import { Photo, User } from 'src/modules/user/entities';
+import { PhotoDto, UserUpdateDto } from '../../user/dto';
+import { Photo, User } from '../../user/entities';
 import { Course } from '../entities';
 
 export class CourseUpdateDto {

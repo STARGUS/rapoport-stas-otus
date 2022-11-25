@@ -1,4 +1,4 @@
-import { Course } from 'src/modules/course/entities';
+import { Course } from '../../course/entities';
 import {
   Column,
   CreateDateColumn,
@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from './user.entity';
+import { User } from '../../user/entities/user.entity';
 import { Field, Int, ObjectType, InputType, ID } from '@nestjs/graphql';
 
 @Entity()
@@ -42,7 +42,7 @@ export class Photo {
 
   @ManyToOne(() => User, (user) => user.avatar)
   @Field((type) => User, { nullable: true })
-  user: User; // У одного пользователя 1 фотограция
+  user: User; // У одного пользователя 1 фотография
 
   @ManyToOne(() => Course, (course) => course.photoMiniTitle)
   @Field((type) => Course, { nullable: true })

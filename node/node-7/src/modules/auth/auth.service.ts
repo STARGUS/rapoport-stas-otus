@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import * as jwt from 'jsonwebtoken';
-import { keyJWT } from 'src/config/config.service';
+import { keyJWT } from '../../config/config.service';
 import { compare } from 'bcrypt';
 import { User } from '../user/entities';
 import { UserRegisterDto } from './dto/user-registration.dto';

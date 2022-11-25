@@ -1,4 +1,4 @@
-import { Photo, User } from 'src/modules/user/entities';
+import { Photo, User } from '../../user/entities';
 import {
   Column,
   CreateDateColumn,
@@ -45,7 +45,7 @@ export class Course {
   @Field((type) => Photo, { nullable: true })
   public photoMiniTitle: Photo;
 
-  @ManyToOne((type) => Lesson, (lesson) => lesson.courseId)
+  @OneToMany((type) => Lesson, (lesson) => lesson.courseId)
   @Field((type) => [Lesson], { nullable: true })
   public lesson: Lesson[];
 
@@ -69,5 +69,4 @@ export class CourseInput {
 
   @Field({ nullable: false })
   description: string;
-  
 }

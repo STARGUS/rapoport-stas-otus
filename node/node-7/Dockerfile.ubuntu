@@ -1,18 +1,21 @@
-FROM node:lts-bullseye-slim
+FROM ubuntu/nginx
+
+
+# Instal global
+RUN sudo apt-get install -y nodejs
+RUN sudo npm i -g @nestjs/cli
+RUN sudo npm install pm2@latest -g
 
 # Create app directory
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-COPY . /usr/src/app
 
-# Instal pm2
-RUN npm i -g @nestjs/cli
-RUN npm install pm2@latest -g
 RUN npm ci
-
 RUN npm run build
+
 # Копируем Клиент в Дист
+COPY . /usr/src/app
 
 
 EXPOSE 3000

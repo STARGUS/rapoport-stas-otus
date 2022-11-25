@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Photo, User, Role } from './entities';
@@ -12,8 +12,6 @@ export class UserService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Role)
     private readonly roleRepository: Repository<Role>,
-    @InjectRepository(Photo)
-    private readonly photoRepository: Repository<Photo>,
   ) {}
 
   // Получение всезх данныхз о пользователе
@@ -36,26 +34,38 @@ export class UserService {
         select: { email: true, password: true, id: true, firstName: true },
       });
     } catch (error) {
-      throw new Error('Method not implemented.');
+      throw new BadRequestException();
     }
   }
   // Создание новой роли
   async createRole(_roleDto: RoleDto) {
-    const role = await this.roleRepository.save(_roleDto);
-    return role;
+    try {
+      const role = await this.roleRepository.save(_roleDto);
+      return role;
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
   // Получение списка ролей
   async findRole() {
-    const data = await this.roleRepository.find();
-    return data;
+    try {
+      const data = await this.roleRepository.find();
+      return data;
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
+  // 8 голов из РК в РФ
+  // на медете 8 голов 13:35 участковый из Алаколя ищет знакомых с медета чтобы посмотреть коней и снять их.
 
   // Создание нового пользователя
   async createUser(_userDto: UserDto): Promise<User> {
     const newPassword = await hash(_userDto.password, 10);
     _userDto.password = newPassword;
+    console.log(_userDto.role);
+    const roles = _userDto.role && _userDto.role.map((el) => el.name);
     _userDto.role = await this.roleRepository.find({
-      where: { name: !!_userDto.role ? In(_userDto.role) : 'USER' }, // приходит массив. нужно его обработать и выдать тоолько сущестующие рооли
+      where: { name: !!roles ? In(roles) : 'USER' }, // приходит массив. нужно его обработать и выдать тоолько сущестующие рооли
     });
     return this.userRepository.save(_userDto);
   }
@@ -78,23 +88,6 @@ export class UserService {
       },
       relations: { role: true, courseAccess: true, courseAdmin: true },
     });
-  }
-
-  // Добавляем фото в базу
-  async editPhoto({ photo, id }): Promise<UserDto> {
-    const dataUser = await this.userRepository.findOne({
-      where: { id: id },
-      relations: { avatar: true },
-    });
-    const photos = await this.photoRepository.save(photo);
-    dataUser.avatar = photos;
-    const user = await this.userRepository.save(dataUser);
-    return user;
-  }
-
-  // Удаление фото
-  async deletePhoto({ photo, id }) {
-    return this.roleRepository.delete({ id: photo.id });
   }
 
   async getUser(access: User[]) {

@@ -4,19 +4,11 @@ import {
   Get,
   NotFoundException,
   Param,
-  ParseIntPipe,
   Post,
-  UploadedFile,
-  Request,
-  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { Express } from 'express';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { Roles } from '../../decorators/roles.decorator';
 import { RoleDto } from './dto';
-import { diskStorage } from 'multer';
-import { extname, join } from 'path';
 
 @Controller('api/users')
 export class UserController {
@@ -55,38 +47,5 @@ export class UserController {
   async findRole() {
     const role = await this.userService.findRole();
     return { role };
-  }
-
-  //------------------------------------------------------
-  //Photo
-  @Post('/editPhoto')
-  @Roles('USER')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: join(__dirname, '..', '..', 'photo'),
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          return cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
-    }),
-  )
-  async editPhoto(
-    @UploadedFile() file: Express.Multer.File,
-    @Body() photodata,
-    @Request() req,
-  ) {
-    const photo = {
-      name: file['originalname'],
-      filename: file['fieldname'],
-      views: file['size'],
-      ...photodata,
-    };
-    const user = await this.userService.editPhoto({ photo, id: req.user.id });
-    return { user };
   }
 }

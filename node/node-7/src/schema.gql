@@ -41,7 +41,7 @@ type Lesson {
 
 type Materail {
   description: String
-  lessonId: Lesson
+  lesson: Lesson
   title: String!
   url: String
 }
@@ -66,8 +66,6 @@ type Photo {
 type Query {
   course(id: String!): Course
   courses: [Course!]
-  lesson(id: String!): Lesson
-  lessons(id: String!): [Lesson!]
   user(id: String!): User
   users: [User!]
 }

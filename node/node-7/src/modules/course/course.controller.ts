@@ -12,7 +12,7 @@ import { CourseRoles, Roles } from 'src/decorators/';
 import { CourseService } from './course.service';
 import { LessonInput } from './entities';
 
-@Controller('course')
+@Controller('api/course')
 export class CourseController {
   constructor(private readonly _courseService: CourseService) {}
 
@@ -121,38 +121,6 @@ export class CourseController {
     return this._courseService.removeCourseComment({ id: commentId });
   }
 
-  //------------------------------------------------------
-  //Lesson
-  @Get(':id/lesson')
-  @CourseRoles('MODERATOR', 'USER')
-  async getLesson(@Param('id') id: string) {
-    return this._courseService.getLessons(id);
-  }
-
-  @Post(':id/lesson')
-  @CourseRoles('MODERATOR')
-  async createLesson(
-    @Body() body: LessonInput,
-    @Request() { user },
-    @Param('id') id: string,
-  ) {
-    return this._courseService.createLesson({
-      data: body,
-      courseId: id,
-    });
-  }
-
-  @Put(':id/lesson/:lessonId')
-  @CourseRoles('MODERATOR')
-  async editLesson(@Body() body, @Param('lessonId') lessonId: string) {
-    return this._courseService.editLesson(lessonId, { ...body });
-  }
-
-  @Delete(':id/lesson/:lessonId')
-  @CourseRoles('MODERATOR')
-  async deleteLesson(@Param('lessonId') lessonId: string) {
-    return this._courseService.removeLesson({ id: lessonId });
-  }
 
   //------------------------------------------------------
   //Comment-Lesson

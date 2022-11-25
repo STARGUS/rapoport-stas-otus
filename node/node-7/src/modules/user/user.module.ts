@@ -8,7 +8,7 @@ import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Role, Photo])],
+  imports: [TypeOrmModule.forFeature([User, Role, Photo]), ],
   controllers: [UserController],
   providers: [UserService, UserResolver],
   exports: [UserService],

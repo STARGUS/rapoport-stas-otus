@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { PhotoDto, UserDto } from 'src/modules/user/dto';
-import { Photo, User } from 'src/modules/user/entities';
-import { Lesson } from '../entities';
+import { PhotoDto, UserDto } from '../../user/dto';
+import { Photo, User } from '../../user/entities';
+import { Lesson } from '../../course/entities';
 
 export class LessonDto {
   readonly title: string;

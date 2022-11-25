@@ -2,8 +2,8 @@ import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { User } from '../entities';
 import { PhotoDto, RoleDto } from '.';
-import { Course } from 'src/modules/course/entities';
-import { CourseDto } from 'src/modules/course/dto';
+import { Course } from '../../course/entities';
+import { CourseDto } from '../../course/dto';
 
 export class UserDto {
   @ApiProperty()

@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Lesson } from './';
+import { Lesson } from '../../course/entities';
 
 @Entity('material')
 @ObjectType()
@@ -17,7 +17,7 @@ export class Materail {
 
   @ManyToOne((type) => Lesson, (lesson) => lesson.material)
   @Field((type) => Lesson, { nullable: true })
-  lessonId: Lesson;
+  lesson: Lesson;
 
   @Column({ unique: true, nullable: false }) //Уникальное имя курса и обязательное поле
   @Field({ nullable: false })

@@ -1,3 +1,6 @@
+import { LessonModule } from './modules/lesson/lesson.module';
+import { PhotoModule } from './modules/photo/photo.module';
+import { MaterialsModule } from './modules/materials/materials.module';
 import { CourseModule } from './modules/course/course.module';
 import { configService } from './config/config.service';
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
@@ -8,7 +11,6 @@ import { UserModule } from './modules/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { UserService } from './modules/user/user.service';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { Photo, Role, User } from './modules/user/entities';
 import { Course, Lesson, Materail, Comment } from './modules/course/entities';
@@ -17,13 +19,16 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   imports: [
+    LessonModule,
+    PhotoModule,
+    MaterialsModule,
     CourseModule,
     AuthModule,
     UserModule,
     TypeOrmModule.forRoot({
       ...configService.getTypeOrmConfig(),
       synchronize: true,
-      entities: [User, Role, Photo, Course, Lesson, Materail, Comment],
+      entities: [User, Role, Photo, Course, Lesson, Materail, Comment], // Подключение таблиц к БД
     }), // подключаем БД
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, 'Client'),
@@ -38,7 +43,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
   ],
   controllers: [AppController],
   providers: [AppService],
-  exports: [UserModule],
+  exports: [UserModule, PhotoModule, MaterialsModule],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

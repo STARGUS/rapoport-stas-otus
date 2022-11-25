@@ -4,11 +4,12 @@ import {
   CreateDateColumn,
   Entity,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Course, Comment, Materail } from '.';
+import { Course, Comment, Materail } from '../../course/entities';
 
 @Entity('lesson')
 @ObjectType()
@@ -24,11 +25,11 @@ export class Lesson {
   @Field({ nullable: true })
   public description: string;
 
-  @OneToMany((type) => Course, (course) => course.lesson)
+  @ManyToOne((type) => Course, (course) => course.lesson)
   @Field((type) => Course, { nullable: true })
   public courseId: Course;
 
-  @OneToMany((type) => Materail, (material) => material.lessonId)
+  @OneToMany((type) => Materail, (material) => material.lesson)
   @Field((type) => [Materail], { nullable: true })
   public material: Materail[];
 

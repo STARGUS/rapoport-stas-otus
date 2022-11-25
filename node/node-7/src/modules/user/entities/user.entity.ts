@@ -7,10 +7,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   JoinTable,
+  OneToOne,
 } from 'typeorm';
 import { Role } from './role.entity';
-import { Photo } from './photo.entity';
-import { Course, Comment } from 'src/modules/course/entities';
+import { Photo } from '../../photo/entities/photo.entity';
+import { Course, Comment } from '../../course/entities';
 import { UserDto } from '../dto';
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 
